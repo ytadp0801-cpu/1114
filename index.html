@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#68bd96">
+  <title>11.14 Happy Birthday Kaede</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #68bd96;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    }
+    body {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+    #cover, #main {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #main {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+    img {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      max-height: calc(100svh - 24px);
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    #coverImg {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .hint {
+      color: #fff;
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 14px;
+      margin: 8px 0 0;
+    }
+    audio { display: none; }
+    @media (max-width: 600px) {
+      body { padding: 6px; }
+      img { max-height: calc(100svh - 12px); }
+    }
+  </style>
+</head>
+<body>
+  <div id="cover">
+    <div>
+      <img src="cover.gif" alt="かえでさんへの誕生日サプライズ。タップして開いてね。" id="coverImg">
+      <p class="hint">封筒をタップして開いてね 💌</p>
+    </div>
+  </div>
+
+  <div id="main">
+    <img src="message.gif" alt="11月14日、かえでさんへの誕生日メッセージ">
+    <audio id="bgm" loop preload="auto">
+      <source src="happy-birthday-334876.mp3" type="audio/mpeg">
+      お使いのブラウザは音声再生に対応していません。
+    </audio>
+    <p class="hint" id="musicHint">🎵 BGMを再生しています</p>
+  </div>
+
+  <script>
+    const cover = document.getElementById("cover");
+    const main = document.getElementById("main");
+    const bgm = document.getElementById("bgm");
+    const musicHint = document.getElementById("musicHint");
+
+    document.getElementById("coverImg").addEventListener("click", async () => {
+      cover.style.display = "none";
+      main.style.display = "flex";
+      try {
+        await bgm.play();
+        musicHint.textContent = "🎵 BGMを再生しています";
+      } catch (error) {
+        musicHint.textContent = "🎵 音が出ない場合は、スマホの消音設定をご確認ください";
+      }
+    });
+  </script>
+</body>
+</html>
